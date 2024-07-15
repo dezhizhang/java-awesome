@@ -70,7 +70,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private User createUserWidthPhone(String phone) {
         User user = new User();
         user.setPhone(phone);
-        user.setNickName(RandomUtil.randomString(10));
+        user.setNickName("user" + RandomUtil.randomString(10));
         save(user);
         return user;
     }
