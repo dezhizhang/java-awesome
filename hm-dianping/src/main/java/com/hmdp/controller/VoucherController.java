@@ -39,8 +39,9 @@ public class VoucherController {
      * @param voucher 优惠券信息，包含秒杀信息
      * @return 优惠券id
      */
-    @PostMapping("seckill")
+    @PostMapping("/seckill")
     public Result addSeckillVoucher(@RequestBody Voucher voucher) {
+        System.out.println(voucher);
         voucherService.addSeckillVoucher(voucher);
         return Result.ok(voucher.getId());
     }
