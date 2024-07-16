@@ -1,5 +1,6 @@
 package com.hmdp.service.impl;
 
+import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.hmdp.dto.Result;
@@ -7,6 +8,7 @@ import com.hmdp.entity.Shop;
 import com.hmdp.mapper.ShopMapper;
 import com.hmdp.service.IShopService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import jdk.jpackage.internal.Log;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,16 +33,21 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     private StringRedisTemplate stringRedisTemplate;
     @Override
     public Result queryById(Long id) {
+        Shop shop = queryWidthPassThrough(id);
+
+        return Result.ok(shop);
+    }
+
+    public Shop queryWidthPassThrough(Long id) {
         String key = CACHE_SHOP_KEY + id;
         //1. 从redis查询商铺缓存
         String shopString = stringRedisTemplate.opsForValue().get(key);
         // 判断是否存在
         if (StrUtil.isNotBlank(shopString)) {
-            Shop shop = JSONUtil.toBean(shopString, Shop.class);
-            return Result.ok(shop);
+            return JSONUtil.toBean(shopString, Shop.class);
         }
         if(shopString !=null){
-            return Result.fail("店铺不存在");
+            return null;
         }
 
         // 不存在根据id查询数据库
@@ -52,7 +59,18 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         // 写入到redis中
         stringRedisTemplate.opsForValue().set(key,JSONUtil.toJsonStr(shop),CACHE_SHOP_TTL, TimeUnit.MINUTES);
 
-        return Result.ok(shop);
+        return shop;
+    }
+
+    // 获取锁
+    private boolean tryLock(String key) {
+        Boolean flag = stringRedisTemplate.opsForValue().setIfAbsent(key,"1",LOCK_SHOP_TTL, TimeUnit.MINUTES);
+        return BooleanUtil.isTrue(flag);
+    }
+
+    // 释放锁
+    private void unlock(String key) {
+        stringRedisTemplate.delete(key);
     }
 
     @Override
