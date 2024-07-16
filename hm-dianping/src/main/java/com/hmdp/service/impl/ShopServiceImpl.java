@@ -39,11 +39,14 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
             Shop shop = JSONUtil.toBean(shopString, Shop.class);
             return Result.ok(shop);
         }
+        if(shopString !=null){
+            return Result.fail("店铺不存在");
+        }
 
         // 不存在根据id查询数据库
         Shop shop = getById(id);
         if (shop == null) {
-            return Result.fail("店铺不存在");
+            stringRedisTemplate.opsForValue().set(key,"",CACHE_NULL_TTL, TimeUnit.MINUTES);
         }
 
         // 写入到redis中
@@ -55,13 +58,15 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Result update(Shop shop) {
+        String key = CACHE_SHOP_KEY + shop.getId();
+
         if(shop.getId() == null){
-            return Result.fail("店铺id不能为空");
+            return Result.fail("店铺不存在");
         }
         // 更新数据库
         updateById(shop);
         // 删除缓存
-        stringRedisTemplate.delete(CACHE_SHOP_KEY + shop.getId());
+        stringRedisTemplate.delete(key);
         return Result.ok();
     }
 }
