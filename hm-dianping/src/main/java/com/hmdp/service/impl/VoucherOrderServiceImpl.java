@@ -52,7 +52,10 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
 
         boolean success = seckillVoucherService.update()
                 .setSql("stock = stock -1")
-                .eq("voucher_id", voucherId).update();
+                .eq("voucher_id", voucherId)
+                .gt("stock",0)
+                .update();
+
         if(!success) {
            return Result.fail("库存不足");
         }
@@ -64,8 +67,8 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
 
         voucherOrder.setId(orderId);
         // 获取用户id
-        Long userId = UserHolder.getUser().getId();
-        voucherOrder.setUserId(userId);
+//        Long userId = UserHolder.getUser().getId();
+        voucherOrder.setUserId(voucherId);
         // 优惠券id
         voucherOrder.setVoucherId(voucherId);
 
