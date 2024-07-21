@@ -1,4 +1,4 @@
-package cn.itcast.article.po;
+package shop.xiaozhicloud.article.po;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -94,5 +94,20 @@ public class Comment implements Serializable {
 
     public Integer getReplyNum() {
         return replyNum;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentPo{" +
+                "id='" + id + '\'' +
+                ", content='" + content + '\'' +
+                ", pubTime='" + pubTime + '\'' +
+                ", userId='" + userId + '\'' +
+                ", state='" + state + '\'' +
+                ", likeNum=" + likeNum +
+                ", parentId='" + parentId + '\'' +
+                ", articleId='" + articleId + '\'' +
+                ", replyNum=" + replyNum +
+                '}';
     }
 }
