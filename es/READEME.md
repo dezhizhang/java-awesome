@@ -21,7 +21,7 @@ public class EsClient {
     }
 }
 ```
-2. 连接客户端
+2. 创建索引
 ```java
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RequestOptions;
@@ -48,4 +48,72 @@ public class EsClient {
         client.close();
     }
 }
+```
+
+
+3. 查询索引
+```java
+package com.xiaozhicloud.es;
+
+
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.client.indices.GetIndexResponse;
+
+public class ESSearchIndex {
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient restHighLevelClient = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
+
+
+        GetIndexRequest user = new GetIndexRequest("user");
+        GetIndexResponse response = restHighLevelClient.indices().get(user,RequestOptions.DEFAULT);
+
+
+        // 响应状态
+        System.out.println(response.getAliases());
+        System.out.println(response.getMappings());
+        System.out.println(response.getSettings());
+
+
+        restHighLevelClient.close();
+
+    }
+}
+```
+4. 删除索引
+```java
+package com.xiaozhicloud.es;
+
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+
+public class ESIndexDelete {
+    public static void main(String[] args) throws Exception {
+
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
+
+        // 删除索引
+        DeleteIndexRequest user = new DeleteIndexRequest("user");
+        AcknowledgedResponse delete = client.indices().delete(user, RequestOptions.DEFAULT);
+        System.out.println(delete.isAcknowledged());
+
+
+
+        client.close();
+
+
+    }
+}
+
 ```
