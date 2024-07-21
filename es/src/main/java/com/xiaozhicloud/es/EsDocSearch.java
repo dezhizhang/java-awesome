@@ -1,28 +1,26 @@
 package com.xiaozhicloud.es;
 
 import org.apache.http.HttpHost;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.support.master.AcknowledgedResponse;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 
-public class ESIndexDelete {
+public class EsDocSearch {
     public static void main(String[] args) throws Exception {
-
-
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(new HttpHost("localhost", 9200, "http"))
         );
 
+        GetRequest request = new GetRequest();
+        request.index("user").id("1001");
 
-        DeleteIndexRequest user = new DeleteIndexRequest("user");
-        AcknowledgedResponse delete = client.indices().delete(user, RequestOptions.DEFAULT);
+        GetResponse response = client.get(request, RequestOptions.DEFAULT);
 
-        System.out.println(delete.isAcknowledged());
+        System.out.println(response.getSourceAsString());
 
         client.close();
-
 
     }
 }
