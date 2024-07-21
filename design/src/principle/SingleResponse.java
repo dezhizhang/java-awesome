@@ -7,8 +7,8 @@ public class SingleResponse {
     }
 }
 
-class Vehicle{
-    public void run(String vehicle){
+class Vehicle {
+    public void run(String vehicle) {
         System.out.println(vehicle + "在公路上运行");
     }
 }
