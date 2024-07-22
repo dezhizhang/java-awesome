@@ -1,10 +1,11 @@
 package shop.xiaozhi.inversion;
 
-public  class DependInversion {
+public class DependInversion {
     public static void main(String[] args) {
         Person person = new Person();
         person.receive(new Email());
 
+        // 微信
         person.receive(new WeiXin());
     }
 }
@@ -21,13 +22,12 @@ class Email implements IReceiver{
 }
 
 class WeiXin implements IReceiver{
-    @Override
     public String getInfo() {
         return "微信信息：15992478448";
     }
 }
 
-class Person{
+class Person {
     public void receive(IReceiver receiver){
         System.out.println(receiver.getInfo());
     }
