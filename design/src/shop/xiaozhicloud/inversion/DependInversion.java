@@ -1,4 +1,4 @@
-package shop.xiaozhi.inversion;
+package shop.xiaozhicloud.inversion;
 
 public class DependInversion {
     public static void main(String[] args) {
@@ -10,12 +10,10 @@ public class DependInversion {
     }
 }
 
-interface  IReceiver{
+interface IReceiver {
     public String getInfo();
 }
-
-class Email implements IReceiver{
-    @Override
+class Email implements IReceiver {
     public String getInfo() {
         return "电子邮箱信息：1541609448@qq.com";
     }
@@ -28,7 +26,7 @@ class WeiXin implements IReceiver{
 }
 
 class Person {
-    public void receive(IReceiver receiver){
+    public void receive(IReceiver receiver) {
         System.out.println(receiver.getInfo());
     }
 }
