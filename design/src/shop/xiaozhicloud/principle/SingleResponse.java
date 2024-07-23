@@ -1,4 +1,4 @@
-package principle;
+package shop.xiaozhicloud.principle;
 
 public class SingleResponse {
     public static void main(String[] args) {

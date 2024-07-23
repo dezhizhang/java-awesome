@@ -1,4 +1,4 @@
-package sergregation;
+package shop.xiaozhicloud.sergregation;
 
 public class Segregation {
     public static void main(String[] args) {
