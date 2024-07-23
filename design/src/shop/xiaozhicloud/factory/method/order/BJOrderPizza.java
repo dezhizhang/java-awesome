@@ -7,12 +7,11 @@ import shop.xiaozhicloud.factory.method.Pizza;
 public class BJOrderPizza extends OrderPizza {
 
     @Override
-    Pizza createPizza(String orderType) {
+    Pizza createPizza(String pizzaName) {
         Pizza pizza = null;
-        if(orderType.equals("cheese")){
+        if(pizzaName.equals("cheese")){
             pizza = new BjCheesePizza();
-
-        }else if(orderType.equals("pepper")){
+        }else if(pizzaName.equals("pepper")){
             pizza = new BjPepperPizza();
         }
         return pizza;

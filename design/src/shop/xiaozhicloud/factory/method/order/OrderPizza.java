@@ -6,25 +6,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-abstract  public class OrderPizza {
+abstract class OrderPizza {
+   abstract Pizza createPizza(String pizzaName);
 
-    public OrderPizza() {
-        Pizza pizza = null;
-        String orderType;
-        do {
-            orderType = getType();
-            // 抽像方法由工厂子类实现
-            pizza = createPizza(orderType);
+   public OrderPizza() {
+       Pizza pizza = null;
+       String pizzaName = null;
 
-            pizza.prepare();
-            pizza.bake();
-            pizza.cut();
-            pizza.box();
+       do{
+           pizzaName = getType();
+           pizza = createPizza(pizzaName);
+           pizza.prepare();
+           pizza.bake();
+           pizza.cut();
+           pizza.box();
 
-        } while (true);
-    }
-    // 定义一个抽像方法 createPizza 让各个工厂子类自已实现
-    abstract Pizza createPizza(String orderType);
+       }while(true);
+   }
 
     public String getType() {
         try{
@@ -36,4 +34,5 @@ abstract  public class OrderPizza {
             return "";
         }
     }
+
 }
