@@ -44,10 +44,8 @@ public class Sheep implements Cloneable {
         }catch (CloneNotSupportedException e){
             System.out.println(e.getMessage());
         }
-
         return sheep;
     }
-
     @Override
     public String toString() {
         return "Sheep{" +
