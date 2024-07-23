@@ -54,5 +54,20 @@ public class SparseArray {
             System.out.println();
         }
 
+        // 稀疏数组恢复成原始二维数组
+        // 先读取稀疏数组的第一行，概据第一行的数据创建原始的二维数组
+        // 在读取稀疏数组后几行的数据，并赋给原始二维数组即可
+        int cheeseArr2[][] = new int[spareArr[0][0]][spareArr[0][1]];
+
+        for(int i = 1;i < spareArr.length;i++) {
+            cheeseArr2[spareArr[i][0]][spareArr[i][1]] =spareArr[i][2];
+        }
+
+        for(int[] row:chessArr) {
+            for(int col:row) {
+                System.out.printf("%d\t",col);
+            }
+            System.out.println();
+        }
     }
 }
