@@ -6,22 +6,68 @@ public class SingleLinkedListTest {
         HeroNode heroNode2 = new HeroNode(2, "卢俊义", "玉麒麟");
         HeroNode heroNode3 = new HeroNode(3, "吴用", "智多星");
         HeroNode heroNode4 = new HeroNode(4,"林冲","豹子头");
-        HeroNode heroNode5 = new HeroNode(2,"小卢","玉麒麟~~~");
         SingleLinkedList linkedList = new SingleLinkedList();
         linkedList.addByOrder(heroNode4);
         linkedList.addByOrder(heroNode1);
         linkedList.addByOrder(heroNode3);
         linkedList.addByOrder(heroNode2);
-        linkedList.addByOrder(heroNode3);
-        linkedList.list();
-        linkedList.update(heroNode5);
-        System.out.println("------");
-        linkedList.list();
-        System.out.println("------");
-        linkedList.del(1);
-        linkedList.list();
+//        linkedList.list();
+//        linkedList.update(heroNode5);
+//        System.out.println("------");
+//        linkedList.list();
+//        System.out.println("------");
+//        linkedList.del(1);
+//        linkedList.list();
+
+//        int length = getLength(linkedList.getHead());
+//
+//        System.out.println(length);
+
+        HeroNode lastIndexNode = findLastIndexNode(linkedList.getHead(), 1);
+        System.out.println(lastIndexNode);
+
 
     }
+    // 统计链表中有效节点的个数
+    public static int getLength(HeroNode head) {
+        if(head.next == null) {
+            return 0;
+        }
+        int length = 0;
+        // 定义一个临时变量
+        HeroNode cur = head.next;
+        while (cur != null) {
+            length++;
+            cur = cur.next;
+        }
+        return  length;
+    }
+
+    // 查找单链表第k个结点
+    // 编写一个方法接收head节点同时接收index
+    // index表示倒数第index个节点
+    // 先把链表从头到尾遍历得到链表的总长度getLength
+    // 得到size后从链表的第一个开始遍历(size - index)个就得到倒数第k个节点
+    // 如果找到则返回该节点，否则返回null
+    public static HeroNode findLastIndexNode(HeroNode head,int index) {
+       // 判断如果链表为空则返回null
+        if(head.next == null) {
+           return null;
+        }
+        // 遍历得到链表的长度
+        int size = getLength(head);
+        // index超过链界返回null
+        if(index < 0 || index > size) {
+            return null;
+        }
+        // 定义一个临时变量 循环定位到倒数的index
+        HeroNode cur = head.next;
+        for(int i = 0;i < size - index;i++) {
+            cur = cur.next;
+        }
+        return cur;
+    }
+
 }
 
 class  SingleLinkedList{
@@ -37,6 +83,10 @@ class  SingleLinkedList{
             temp = temp.next;
         }
         temp.next = heroNode;
+    }
+
+    public HeroNode getHead() {
+        return head;
     }
 
     // 根据HeroNode的no来修改
