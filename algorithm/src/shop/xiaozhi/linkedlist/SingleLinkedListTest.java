@@ -11,7 +11,7 @@ public class SingleLinkedListTest {
         linkedList.addByOrder(heroNode1);
         linkedList.addByOrder(heroNode3);
         linkedList.addByOrder(heroNode2);
-//        linkedList.list();
+        linkedList.list();
 //        linkedList.update(heroNode5);
 //        System.out.println("------");
 //        linkedList.list();
@@ -23,8 +23,13 @@ public class SingleLinkedListTest {
 //
 //        System.out.println(length);
 
-        HeroNode lastIndexNode = findLastIndexNode(linkedList.getHead(), 1);
-        System.out.println(lastIndexNode);
+//        HeroNode lastIndexNode = findLastIndexNode(linkedList.getHead(), 1);
+//        System.out.println(lastIndexNode);
+
+        reverseList(linkedList.getHead());
+
+        linkedList.list();
+
 
 
     }
@@ -49,23 +54,69 @@ public class SingleLinkedListTest {
     // 先把链表从头到尾遍历得到链表的总长度getLength
     // 得到size后从链表的第一个开始遍历(size - index)个就得到倒数第k个节点
     // 如果找到则返回该节点，否则返回null
-    public static HeroNode findLastIndexNode(HeroNode head,int index) {
-       // 判断如果链表为空则返回null
+    public static  HeroNode findLastIndexNode(HeroNode head,int index) {
+        // 判断如果链表为空则返回null
         if(head.next == null) {
-           return null;
+            return null;
         }
         // 遍历得到链表的长度
         int size = getLength(head);
-        // index超过链界返回null
+        // 校检index是否超过边界
         if(index < 0 || index > size) {
             return null;
         }
         // 定义一个临时变量 循环定位到倒数的index
         HeroNode cur = head.next;
-        for(int i = 0;i < size - index;i++) {
+
+        for(int i=0;i < size - index;i++) {
             cur = cur.next;
         }
         return cur;
+    }
+
+    // 单链表反转
+//    public static void reverseList(HeroNode head) {
+//        // 如果当前链表为空或只有一个节点无需反转直接返回
+//        if(head.next == null || head.next.next == null) {
+//            return;
+//        }
+//
+//        // 定义一个临时变量
+//        HeroNode cur = head.next;
+//        HeroNode next = null;
+//        HeroNode reverseHead = new HeroNode(0,"","");
+//
+//        //遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reverseHead的最前端
+//        while (cur != null) {
+//            next = cur.next;
+//            cur.next = reverseHead.next;
+//            reverseHead.next = cur;
+//            cur = next;
+//        }
+//        // 将head.next指向reverseHead.next实现单链表的反转
+//        head.next = reverseHead.next;
+//    }
+    public static void reverseList(HeroNode head) {
+        // 如果当前链表为空或只有一个节点无需反转直接返回
+        if(head.next == null || head.next.next == null) {
+            return;
+        }
+
+        // 定义一个临时变量
+        HeroNode cur = head.next;
+        HeroNode next = null;
+
+        HeroNode reverseHead = new HeroNode(0,"","");
+
+        while (cur != null) {
+            next = cur.next;
+            cur.next = reverseHead.next;
+            reverseHead.next = cur;
+            cur = next;
+        }
+
+        //将head.next指向reverseHead.next实现单链表的反转
+        head.next = reverseHead.next;
     }
 
 }
