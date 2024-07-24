@@ -2,11 +2,10 @@ package shop.xiaozhi.queue;
 
 import java.util.Scanner;
 
-public class ArrayQueueTest {
+public class CircleArrayQueueTest {
     public static void main(String[] args) {
-        ArrayQueue arrayQueue = new ArrayQueue(3);
+        CircleArrayQueue arrayQueue = new CircleArrayQueue(3);
         char key = ' ';
-
         Scanner scanner = new Scanner(System.in);
         boolean loop = true;
         while (loop) {
@@ -17,7 +16,7 @@ public class ArrayQueueTest {
             System.out.println("g(get): 从队列取出数据");
             key = scanner.next().charAt(0);
             switch (key) {
-                case 's': 
+                case 's':
                     arrayQueue.showQueue();
                     break;
                 case 'a':
@@ -30,10 +29,10 @@ public class ArrayQueueTest {
                         int result = arrayQueue.getQueue();
                         System.out.printf("取出的数据是%d\n",result);
                     }catch (Exception e) {
-                       System.out.println(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                     break;
-                    case 'h':
+                case 'h':
                     try{
                         int result = arrayQueue.headQueue();
                         System.out.printf("取出队头数据%d\n",result);
@@ -41,9 +40,9 @@ public class ArrayQueueTest {
                         System.out.println(e.getMessage());
                     }
                     break;
-                    case 'e':
-                        scanner.close();
-                        loop = false;
+                case 'e':
+                    scanner.close();
+                    loop = false;
                 default:
                     break;
 
@@ -53,62 +52,74 @@ public class ArrayQueueTest {
     }
 }
 
-class ArrayQueue{
-    private final int maxSize;
-    private int front;
-    private int rear;
-    private final int[] array;
 
-    public ArrayQueue(int maxSize){
+class CircleArrayQueue {
+    private  final int maxSize; // 表示数组的最大容量
+    private int front; //指向队列的第一个元素初始值为0
+    private int near; // 指向队尾元素初始值为0
+    private final int[] arr; // 用于存放数据
+
+    public CircleArrayQueue(int maxSize) {
         this.maxSize = maxSize;
-        this.front = -1;
-        this.rear = -1;
-        this.array = new int[maxSize];
-    }
-    // 判断队列是否满
-    public boolean isFull(){
-      return rear == maxSize - 1;
-    }
-    // 判断隐表是否为空
-    public boolean isEmpty(){
-        return rear == front;
+        arr = new int[maxSize];
     }
 
-    public void addQueue(int value) {
+    // 判断队列是否满
+    public boolean isFull() {
+        return (near + 1) % maxSize == front;
+    }
+
+    // 判断队列是否为空
+    public boolean isEmpty() {
+        return near == front;
+    }
+
+    // 添加数据
+    public void addQueue(int n) {
+        // 判断队列是否满
         if(isFull()) {
             System.out.println("队列满不能加入数据");
             return;
         }
-        this.rear++;
-        this.array[rear] = value;
+        // 直接将数据加入
+        arr[near] = n;
+        near = (near + 1) % maxSize;
     }
 
+    // 获取队列中的数据
     public int getQueue() {
+        // 判断队列是否空
         if(isEmpty()) {
-            throw  new RuntimeException("队列为空不能取数据");
+            throw  new RuntimeException("队列空不能取数据");
         }
-        front++;
-        return array[front];
+        // 1 先把front对应的值保留到一个临时变量
+        int value = arr[front];
+        front = (front + 1) % maxSize;
+        return value;
     }
-    // 显示队列所有数据
-    public  void showQueue() {
+
+    // 显示队列
+    public void showQueue() {
         if(isEmpty()) {
             System.out.println("队列为空");
             return;
         }
-        for(int i =0;i < array.length;i++) {
-            System.out.printf("arr[%d]=%d\n",i,array[i]);
+        for(int i = front;i < front + size();i++) {
+            System.out.printf("arr[%d]=%d\n",i % maxSize,arr[i % maxSize]);
         }
     }
-    // 显示队列的头数据,注意不是取数据
+
+    // 显示头元素
     public int headQueue() {
         if(isEmpty()) {
-            throw new RuntimeException("队列为空不能取数据");
+            throw  new RuntimeException("队列为空");
         }
-        return array[front + 1];
+        return arr[front];
+    }
+
+    // 求出当前队列有效数据个数
+    public int size() {
+        return (near + maxSize - front) % maxSize;
     }
 
 }
-
-
-

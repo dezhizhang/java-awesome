@@ -1,5 +1,6 @@
 package shop.xiaozhi.sparsearray;
 
+
 public class SparseArray {
     public static void main(String[] args) {
         // 创建一个原始的二维数组11*11
@@ -66,7 +67,5 @@ public class SparseArray {
             }
             System.out.println();
         }
-
-
     }
 }
