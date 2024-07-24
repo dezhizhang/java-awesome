@@ -1,5 +1,6 @@
 package shop.xiaozhi.queue;
 
+import javax.management.RuntimeMBeanException;
 import java.util.Scanner;
 
 public class CircleArrayQueueTest {
@@ -68,12 +69,10 @@ class CircleArrayQueue {
     public boolean isFull() {
         return (near + 1) % maxSize == front;
     }
-
     // 判断队列是否为空
     public boolean isEmpty() {
         return near == front;
     }
-
     // 添加数据
     public void addQueue(int n) {
         // 判断队列是否满
@@ -90,12 +89,12 @@ class CircleArrayQueue {
     public int getQueue() {
         // 判断队列是否空
         if(isEmpty()) {
-            throw  new RuntimeException("队列空不能取数据");
+            throw new RuntimeException("队列空不能取数据");
         }
         // 1 先把front对应的值保留到一个临时变量
         int value = arr[front];
         front = (front + 1) % maxSize;
-        return value;
+        return  value;
     }
 
     // 显示队列
@@ -114,12 +113,12 @@ class CircleArrayQueue {
         if(isEmpty()) {
             throw  new RuntimeException("队列为空");
         }
-        return arr[front];
+        return  arr[front];
     }
-
     // 求出当前队列有效数据个数
     public int size() {
-        return (near + maxSize - front) % maxSize;
+        return  (near + maxSize - front) % maxSize;
     }
+
 
 }
