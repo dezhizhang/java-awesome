@@ -15,8 +15,12 @@ public class SingleLinkedListTest {
         linkedList.addByOrder(heroNode3);
         linkedList.list();
         linkedList.update(heroNode5);
-        System.out.println("----------");
+        System.out.println("------");
         linkedList.list();
+        System.out.println("------");
+        linkedList.del(1);
+        linkedList.list();
+
     }
 }
 
@@ -93,6 +97,29 @@ class  SingleLinkedList{
         // 插入到链表中
         heroNode.next = temp.next;
         temp.next = heroNode;
+    }
+
+    public void del(int no) {
+        HeroNode temp = head;
+        // 标识是否找到待删除节点
+        boolean flag = false;
+        while (true) {
+            if(temp.next == null) {
+                break;
+            }
+            if(temp.next.no == no) {
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+
+        if(flag) {
+            temp.next = temp.next.next;
+            return;
+        }
+
+        System.out.println("删除的节点不存在");
     }
 
     public void list() {
