@@ -20,16 +20,15 @@ class  DoubleLinkedListTest{
 
 
         doubleLinkedList.list();
+        System.out.println("------------");
         doubleLinkedList.update(heroNode5);
         doubleLinkedList.list();
+        System.out.println("------------");
 
         doubleLinkedList.del(3);
+
         doubleLinkedList.list();
-
-
-
-
-
+        System.out.println("------------");
 
     }
 }
