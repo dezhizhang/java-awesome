@@ -8,11 +8,17 @@ import java.util.Stack;
 public class PolandNotation {
     public static void main(String[] args) {
         // 先定义波兰表达式
-        String suffixExpression = "3 4 + 5 * 6 -";
-        List<String> list = getListString(suffixExpression);
+//        String suffixExpression = "3 4 + 5 * 6 -";
+//        List<String> list = getListString(suffixExpression);
+//
+//        int res = calculate(list);
+//        System.out.println(res);
 
-        int res = calculate(list);
-        System.out.println(res);
+        String expression = "1 + ( ( 2 + 3) * 4 ) - 5";
+        List<String> infixExpressionList = toInfixExpressionList(expression);
+
+        System.out.println(infixExpressionList);
+
 
     }
 
@@ -25,6 +31,25 @@ public class PolandNotation {
         Collections.addAll(list, split);
         return list;
     }
+
+    // 将中缀表过式转成对应的List
+    public static List<String> toInfixExpressionList(String s) {
+        List<String> list = new ArrayList<String>();
+        String[] items = s.split(" ");
+        Collections.addAll(list, items);
+        return list;
+    }
+
+    // 中缀表过式转成后缀表过式
+    public static List<String> parseSuffixExpressionList(List<String> list) {
+        // 符号栈
+        Stack<String> s1 = new Stack<>();
+        // 数栈
+        Stack<String> s2 = new Stack<>();
+
+        return new ArrayList<>();
+    }
+
 
     // 完成对逆波兰表达式的运算
     public static int calculate(List<String> list) {
