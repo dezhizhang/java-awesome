@@ -10,12 +10,13 @@ public class ShellSort {
         System.out.println(Arrays.toString(arr));
     }
 
+
     public static void shellSort(int[] arr) {
         for(int gap = arr.length / 2;gap > 0;gap /=2) {
             int temp = 0;
-            for(int i=gap;i < arr.length;i++) {
+            for(int i= gap;i < arr.length;i++) {
                 for(int j=i - gap;j >=0;j-=gap) {
-                    if(arr[j] > arr[j + gap]) {
+                    if(arr[gap] > arr[j + gap]) {
                         temp = arr[j];
                         arr[j] = arr[j + gap];
                         arr[j + gap] = temp;
@@ -24,4 +25,5 @@ public class ShellSort {
             }
         }
     }
+
 }
