@@ -7,6 +7,9 @@ public class FibSearch {
 
     public static void main(String[] args) {
         int[] arr = {1, 8, 10, 89, 1000, 1234};
+        int i = fibSearch(arr, 10);
+        System.out.println(i);
+
     }
 
     public static int[] fib() {
@@ -26,7 +29,7 @@ public class FibSearch {
         int high = a.length - 1;
         int k = 0;
         int mid = 0;
-        int f[] = fib();
+        int[] f = fib();
         while (high > f[k] - 1) {
             k++;
         }
@@ -36,15 +39,20 @@ public class FibSearch {
         for (int i = high + 1; i < temp.length; i++) {
             temp[i] = a[high];
         }
-        //
-        while (low <=high) {
-
+        //使用while来循环处理找到key
+        while (low <= high) {
+            mid = low + f[k - 1] - 1;
+            if (key < temp[mid]) {
+                high = mid - 1;
+                k--;
+            } else if (key > temp[mid]) {
+                low = mid + 1;
+                k -= 2;
+            } else {
+                return Math.min(mid, high);
+            }
         }
-
-
-
-
-
+        return -1;
     }
 
 }
