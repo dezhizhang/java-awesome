@@ -1,8 +1,50 @@
 package shop.xiaozhi.hash;
 
+import java.util.Scanner;
+
 public class HashTableTest {
     public static void main(String[] args) {
+        // 创建哈希表
+        HashTab hashTab = new HashTab(7);
 
+        // 写一个简单菜单
+        String key = "";
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("add: 添加雇员");
+            System.out.println("list: 显示雇员");
+            System.out.println("find: 查找雇员");
+            System.out.println("exit: 退出系统");
+
+            key = scanner.next();
+            switch (key) {
+                case "add":
+                    System.out.println("输入id");
+                    int id = scanner.nextInt();
+                    System.out.println("输入名字");
+                    String name = scanner.next();
+
+                    // 创建雇员
+                    Emp emp = new Emp(id, name);
+                    hashTab.add(emp);
+                    break;
+                case "list":
+                    hashTab.list();
+                    break;
+                case "find":
+                    System.out.println("请输入要查找的id");
+                    int id1 = scanner.nextInt();
+                    hashTab.findEmpById(id1);
+                    break;
+                case "exit":
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    break;
+            }
+
+        }
     }
 }
 
@@ -14,7 +56,12 @@ class HashTab {
     // 构造器
     public HashTab(int size) {
         this.size = size;
+        // 初妈化
         empLinkedList = new EmpLinkedList[size];
+        // 初始化每个链表
+        for (int i = 0; i < size; i++) {
+            empLinkedList[i] = new EmpLinkedList();
+        }
     }
 
     // 添加雇员
@@ -31,8 +78,21 @@ class HashTab {
     // 遍历所有链表
     public void list() {
         for (int i = 0; i < size; i++) {
-            empLinkedList[i].list();
+            empLinkedList[i].list(i);
         }
+    }
+
+    // 根据输入id查找雇员
+    public void findEmpById(int id) {
+        // 使用散列函数
+        int empLinkedListNo = hashFun(id);
+        Emp emp = empLinkedList[empLinkedListNo].findEmpById(id);
+        if (emp == null) {
+            System.out.println("在哈希表中没有找到散列表");
+            return;
+        }
+
+        System.out.printf("第%d条链表中找到雇员id = %d\n", empLinkedListNo + 1, id);
     }
 
 }
@@ -71,12 +131,12 @@ class EmpLinkedList {
     }
 
     // 显示链表信息
-    public void list() {
+    public void list(int no) {
         if (head == null) {
-            System.out.println("链表为空");
+            System.out.println("第" + no + "链表为空");
             return;
         }
-        System.out.println("当前链表信息");
+        System.out.println("第" + no + "链表信息");
         Emp temp = head;
 
         while (true) {
@@ -86,7 +146,27 @@ class EmpLinkedList {
             }
             temp = temp.next;
         }
+    }
 
+    // 根据id查找雇员
+    public Emp findEmpById(int id) {
+        if (head == null) {
+            System.out.println("链表为空");
+            return null;
+        }
+
+        Emp temp = head;
+        while (true) {
+            if (temp.id == id) {
+                break;
+            }
+            if (temp.next == null) {
+                temp = null;
+                break;
+            }
+            temp = temp.next;
+        }
+        return temp;
     }
 }
 
