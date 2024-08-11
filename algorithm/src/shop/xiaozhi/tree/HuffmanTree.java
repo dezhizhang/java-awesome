@@ -26,23 +26,21 @@ public class HuffmanTree {
         // 1遍历array数组
         // 2将array每个元素构成一个node
         // 3将node放入到arrayList
-
         List<Node> nodes = new ArrayList<Node>();
+
         for (int value : arr) {
             nodes.add(new Node(value));
         }
 
-
         while (nodes.size() > 1) {
             // 从小到大排序
             Collections.sort(nodes);
-
             // 取出权值最小的节点(二叉树)
             Node leftNode = nodes.get(0);
             // 取出权限第二小的节点
             Node rightNode = nodes.get(1);
 
-            // 构建一颗新的二叉树
+            // 根据节点生成一颗新的二叉树
             Node parent = new Node(leftNode.value + rightNode.value);
             parent.left = leftNode;
             parent.right = rightNode;
@@ -52,12 +50,11 @@ public class HuffmanTree {
             nodes.remove(rightNode);
 
             nodes.add(parent);
+
         }
-        // 返回赫夫曼树根节点
         return nodes.get(0);
-
-
     }
+
 
 }
 
