@@ -2,13 +2,21 @@ package shop.xiaozhi.tree;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class HuffmanTree {
+    static Map<Byte, String> huffmanCodes = new HashMap<Byte, String>();
+
+    static StringBuffer stringBuffer = new StringBuffer();
+
     public static void main(String[] args) {
         int[] arr = {13, 7, 8, 3, 29, 6, 1};
         Node huffmanTree = createHuffmanTree(arr);
         preOrder(huffmanTree);
+
+        getCodes(huffmanTree,"",stringBuffer);
+
 
     }
 
@@ -20,6 +28,23 @@ public class HuffmanTree {
 
         root.preOrder();
     }
+
+    public static void getCodes(Node node, String code, StringBuffer stringBuffer) {
+        StringBuffer stringBuffer2 = new StringBuffer(stringBuffer);
+
+        stringBuffer2.append(code);
+
+        if (node != null) {
+            // 判断当前node是叶子结点还是非叶子节点
+            if (node.data == null) {
+                getCodes(node.left, "0", stringBuffer2);
+                getCodes(node.right, "1", stringBuffer2);
+            } else {
+                huffmanCodes.put(node.data, stringBuffer2.toString());
+            }
+        }
+    }
+
 
     // 创建赫夫曼树
     public static Node createHuffmanTree(int[] arr) {
