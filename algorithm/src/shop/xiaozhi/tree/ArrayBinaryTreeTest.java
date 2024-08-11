@@ -2,7 +2,7 @@ package shop.xiaozhi.tree;
 
 public class ArrayBinaryTreeTest {
     public static void main(String[] args) {
-        int[] arr = {1,2,3,4,5,6,7};
+        int[] arr = {1, 2, 3, 4, 5, 6, 7};
         ArrayBinaryTree arrayBinaryTree = new ArrayBinaryTree(arr);
         arrayBinaryTree.preOrder();
     }
@@ -18,12 +18,13 @@ class ArrayBinaryTree {
     public void preOrder() {
         this.preOrder(0);
     }
+
     public void preOrder(int index) {
         if (arr == null || arr.length == 0) {
-            System.out.println("数组为空不能遍历");
+            System.out.println("数组为空");
             return;
         }
-        // 输出当前这个元素
+        // 输出当前值
         System.out.println(arr[index]);
         // 向左递归遍历
         if ((index * 2 + 1) < arr.length) {
@@ -33,6 +34,6 @@ class ArrayBinaryTree {
         if ((index * 2 + 2) < arr.length) {
             preOrder(2 * index + 2);
         }
-        
+
     }
 }
