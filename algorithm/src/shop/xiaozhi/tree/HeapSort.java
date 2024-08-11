@@ -12,7 +12,7 @@ public class HeapSort {
     // 堆排序
     public static void heapSort(int[] arr) {
         int temp = 0;
-        // 将元序序列构建成一个大顶堆
+        // 将元数据转换成大顶堆
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
             adjustHeap(arr, i, arr.length);
         }
@@ -27,11 +27,9 @@ public class HeapSort {
 
     // 将数组调整成大顶堆
     public static void adjustHeap(int[] arr, int i, int length) {
-        // 取出当前元素的值，存在在临时变量
+        // 取出当前元素的值，保存为临时变量
         int temp = arr[i];
-
         for (int k = i * 2 + 1; k < length; k = k * 2 + 1) {
-            // 左子节点的值小于右子节点的值
             if (k + 1 < length && arr[k] < arr[k + 1]) {
                 k++;
             }
@@ -42,7 +40,6 @@ public class HeapSort {
 
             arr[i] = arr[k];
             i = k;
-
         }
         arr[i] = temp;
     }
