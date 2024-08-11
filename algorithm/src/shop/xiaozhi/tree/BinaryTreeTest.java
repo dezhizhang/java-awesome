@@ -19,8 +19,6 @@ public class BinaryTreeTest {
         binaryTree.delNode(4);
         binaryTree.infixOrder();
 
-//        System.out.println(binaryTree.postOrderSearch(3));
-
     }
 }
 
@@ -219,29 +217,27 @@ class HeroNode {
     }
 
     // 递归删除节点
-//    public void delNode(int no) {
-//        // 如果当前节点的左子节点不为空，并且左子节点就是要删除的节点
-//        if (this.left != null && this.left.no == no) {
-//            this.left = null;
-//            return;
-//        }
-//
-//        // 如果当前节点右子节点不为空，并且右子节点就是要删除的节点
-//        if (this.right != null && this.right.no == no) {
-//            this.right = null;
-//            return;
-//        }
-//
-//        // 左子树不为空则向左子树递归删除
-//        if (this.left != null) {
-//            this.left.delNode(no);
-//        }
-//
-//        // 右子树不为空则向右子对递归删除
-//        if (this.right != null) {
-//            this.right.delNode(no);
-//        }
-//    }
+    public void delNode(int no) {
+        //  如果当前节点的左子节点不为空，并且左子节点就是要删除的节点
+        if (this.left != null && this.left.no == no) {
+            this.left = null;
+            return;
+        }
+        //  如果当前节点右子节点为空，并且右子节点就是要删除的节点
+        if (this.right != null && this.right.no == no) {
+            this.right = null;
+            return;
+        }
+
+        // 左子树不为空向左子树递递归删除
+        if (this.left != null) {
+            this.left.delNode(no);
+        }
+        // 右子树不为空则向右子树递归删除
+        if (this.right != null) {
+            this.right.delNode(no);
+        }
+    }
 
 
     @Override
