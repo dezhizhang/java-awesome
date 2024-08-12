@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HuffmanTree {
-    static Map<Byte, String> huffmanCodes = new HashMap<Byte, String>();
+    // static Map<Byte, String> huffmanCodes = new HashMap<Byte, String>();
 
     static StringBuffer stringBuffer = new StringBuffer();
 
@@ -36,12 +36,12 @@ public class HuffmanTree {
 
         if (node != null) {
             // 判断当前node是叶子结点还是非叶子节点
-            if (node.data == null) {
-                getCodes(node.left, "0", stringBuffer2);
-                getCodes(node.right, "1", stringBuffer2);
-            } else {
-                huffmanCodes.put(node.data, stringBuffer2.toString());
-            }
+//            if (node.data == null) {
+//                getCodes(node.left, "0", stringBuffer2);
+//                getCodes(node.right, "1", stringBuffer2);
+//            } else {
+//                huffmanCodes.put(node.data, stringBuffer2.toString());
+//            }
         }
     }
 
