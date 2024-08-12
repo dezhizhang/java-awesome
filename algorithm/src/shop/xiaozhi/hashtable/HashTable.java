@@ -2,6 +2,8 @@ package shop.xiaozhi.hashtable;
 
 public class HashTable {
     public static void main(String[] args) {
+        int size = 0;
+        Entry[] table = new Entry[16];
 
     }
 }
@@ -18,4 +20,11 @@ class Entry {
         this.key = key;
         this.value = value;
     }
+
+    // 根据hash码获取value
+    public Object get(int hash, Object key) {
+        return null;
+    }
+
+
 }
