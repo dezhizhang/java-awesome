@@ -91,6 +91,11 @@ class Node {
             }
             this.right = node;
         }
+
+        // 当添加完一个节点后，如果:(右子树的高度-左子树高度) > 1 左旋转
+        if (rightHeight() - leftHeight() > 1) {
+            leftRotate();
+        }
     }
 
     // 返回当前节点的高度
@@ -110,8 +115,18 @@ class Node {
     }
 
     // 右旋转二叉树
-
-
+    public void leftRotate() {
+        // 创建新的节点，以当前根节点的值
+        Node newNode = new Node(value);
+        // 把新的节点的右子树设置成右子树的左子树
+        newNode.right = right.left;
+        // 把当前节点的值替换成右子节点的值
+        value = right.value;
+        // 把当节节点的右子树设置成当前右子树的右子树
+        right = right.right;
+        // 把当前节点的左子树设置成新结点
+        left = newNode;
+    }
 
     @Override
     public String toString() {
