@@ -1,6 +1,27 @@
 package shop.xiaozhi.hashtable;
 
-public class HashTable {
+import java.util.Arrays;
+
+public class HashTableTest{
+    public static void main(String[] args) {
+        HashTable table = new HashTable();
+        table.put(1,"zhangsan","张三");
+        table.put(17,"lisi","李四");
+        table.put(2,"wang","王五");
+
+
+        System.out.println(table.size);
+        System.out.println(table.table[1].value);
+        System.out.println(table.table[1].next.value);
+
+        table.put(1,"zhangsan","张皿");
+        System.out.println(table.table[1].value);
+
+    }
+
+}
+
+class HashTable {
     // 节点类
     static class Entry {
         int hash; // 哈希码
@@ -14,7 +35,14 @@ public class HashTable {
             this.value = value;
         }
 
-
+        @Override
+        public String toString() {
+            return "Entry{" +
+                    "hash=" + hash +
+                    ", key=" + key +
+                    ", value=" + value + ", next=" + next +
+                    '}';
+        }
     }
 
     Entry[] table = new Entry[16];
@@ -59,6 +87,7 @@ public class HashTable {
             }
             p.next = new Entry(hash, key, value);
         }
+        size++;
     }
 
     // 根据hash码删除
