@@ -94,7 +94,7 @@ public class Graph {
         int w; // 领接结点
 
         // 队列记录访问的顺序
-        LinkedList queue = new LinkedList();
+        LinkedList<Integer> queue = new LinkedList<Integer>();
         System.out.println(getValueByIndex(i) + "->");
         // 标记为已访问
         isVisited[i] = true;
