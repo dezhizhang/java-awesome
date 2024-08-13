@@ -24,7 +24,7 @@ public class Graph {
 
 //        graph.showGraph();
 
-        graph.dfs();
+        graph.bfs();
 
 
     }
@@ -89,13 +89,13 @@ public class Graph {
     }
 
     // 图的广度优先遍历
-    public void bfs(boolean[] isVisited, int i) {
+    private void bfs(boolean[] isVisited, int i) {
         int u; // 表示队列的头结点对应下标
         int w; // 领接结点
 
         // 队列记录访问的顺序
         LinkedList queue = new LinkedList();
-        System.out.println(getValueByIndex(i) + "=>");
+        System.out.println(getValueByIndex(i) + "->");
         // 标记为已访问
         isVisited[i] = true;
         // 将节点加入队列
@@ -109,7 +109,7 @@ public class Graph {
 
             while (w != -1) {
                 if (!isVisited[w]) {
-                    System.out.println(getValueByIndex(i) + "=>");
+                    System.out.println(getValueByIndex(w) + "->");
                     // 标记已访问
                     isVisited[w] = true;
                     // 入队
@@ -117,6 +117,15 @@ public class Graph {
                 }
                 // 以u为前驱点，找到w后面的下一个邻结点
                 w = getNextNeighbor(u, w);
+            }
+        }
+    }
+
+    // 遍历所有节点都进行广度优先搜索
+    public void bfs() {
+        for (int i = 0; i < getNumOfVertex(); i++) {
+            if (!isVisited[i]) {
+                bfs(isVisited, i);
             }
         }
     }
