@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Graph {
     public static void main(String[] args) {
         int n = 5;
-        String[] vertexs = {"A", "B", "C", "D","E"};
+        String[] vertexs = {"A", "B", "C", "D", "E"};
         Graph graph = new Graph(n);
 
         for (String value : vertexs) {
@@ -77,11 +77,10 @@ public class Graph {
             // 如果w节点已经被访问查找一个访问节点
             w = getNextNeighbor(i, w);
         }
+
     }
 
-    // 对sfs进行重载，遍历所有的节点
     public void dfs() {
-        // 遍历所有的dfs进行dfs回
         for (int i = 0; i < getNumOfVertex(); i++) {
             if (!isVisited[i]) {
                 dfs(isVisited, i);
