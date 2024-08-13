@@ -2,6 +2,7 @@ package shop.xiaozhi.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Graph {
     public static void main(String[] args) {
@@ -88,6 +89,37 @@ public class Graph {
     }
 
     // 图的广度优先遍历
+    public void bfs(boolean[] isVisited, int i) {
+        int u; // 表示队列的头结点对应下标
+        int w; // 领接结点
+
+        // 队列记录访问的顺序
+        LinkedList queue = new LinkedList();
+        System.out.println(getValueByIndex(i) + "=>");
+        // 标记为已访问
+        isVisited[i] = true;
+        // 将节点加入队列
+        queue.addLast(i);
+
+        while (!queue.isEmpty()) {
+            // 取出队列头结点下标
+            u = (Integer) queue.removeFirst();
+            // 得到第一个邻接节点的下标w
+            w = getFirstNeighbor(u);
+
+            while (w != -1) {
+                if (!isVisited[w]) {
+                    System.out.println(getValueByIndex(i) + "=>");
+                    // 标记已访问
+                    isVisited[w] = true;
+                    // 入队
+                    queue.addLast(w);
+                }
+                // 以u为前驱点，找到w后面的下一个邻结点
+                w = getNextNeighbor(u, w);
+            }
+        }
+    }
 
     // 插入节点
     public void insertVertex(String vertex) {
