@@ -2,21 +2,22 @@ package shop.xiaozhi.hashtable;
 
 import java.util.Arrays;
 
-public class HashTableTest{
+public class HashTableTest {
     public static void main(String[] args) {
         HashTable table = new HashTable();
-        table.put(1,"zhangsan","张三");
-        table.put(17,"lisi","李四");
-        table.put(2,"wang","王五");
+        table.put(1, "zhangsan", "张三");
+        table.put(17, "lisi", "李四");
+        table.put(2, "wang", "王五");
 
+
+        table.put(1, "zhangsan", "张皿");
+        System.out.println(table.table[1].value);
+
+        table.remove(17,"lisi");
 
         System.out.println(table.size);
         System.out.println(table.table[1].value);
         System.out.println(table.table[1].next.value);
-
-        table.put(1,"zhangsan","张皿");
-        System.out.println(table.table[1].value);
-
     }
 
 }
@@ -37,11 +38,7 @@ class HashTable {
 
         @Override
         public String toString() {
-            return "Entry{" +
-                    "hash=" + hash +
-                    ", key=" + key +
-                    ", value=" + value + ", next=" + next +
-                    '}';
+            return "Entry{" + "hash=" + hash + ", key=" + key + ", value=" + value + ", next=" + next + '}';
         }
     }
 
@@ -92,6 +89,27 @@ class HashTable {
 
     // 根据hash码删除
     Object remove(int hash, Object key) {
+        int idx = hash & (table.length - 1);
+
+        if (table[idx] == null) {
+            return null;
+        }
+        Entry p = table[idx];
+        Entry prev = null;
+        while (p != null) {
+            if (p.key.equals(key)) {
+                // 找到并删除
+                if (prev == null) {
+                    table[idx] = p.next;
+                } else {
+                    prev.next = p.next;
+                }
+                size--;
+                return p.value;
+            }
+            prev = p;
+            p = p.next;
+        }
         return null;
     }
 
