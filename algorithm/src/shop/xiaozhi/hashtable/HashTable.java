@@ -22,12 +22,43 @@ public class HashTable {
 
     // 根据hash码获取value
     Object get(int hash, Object key) {
+        int idx = hash & (table.length - 1);
+
+        if (table[idx] == null) {
+            return null;
+        }
+
+        Entry p = table[idx];
+        while (p != null) {
+            if (p.key.equals(key)) {
+                return p.value;
+            }
+            p = p.next;
+        }
+
         return null;
     }
 
     // 根据hash存放数据，如果key重复更新value
     void put(int hash, Object key, Object value) {
-
+        int idx = hash & (table.length - 1);
+        if (table[idx] == null) {
+            table[idx] = new Entry(hash, key, value);
+        } else {
+            Entry p = table[idx];
+            while (true) {
+                if (p.key.equals(key)) {
+                    // 更新
+                    p.value = value;
+                    return;
+                }
+                if (p.next == null) {
+                    break;
+                }
+                p = p.next;
+            }
+            p.next = new Entry(hash, key, value);
+        }
     }
 
     // 根据hash码删除
