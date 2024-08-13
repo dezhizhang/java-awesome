@@ -77,7 +77,6 @@ public class Graph {
             // 如果w节点已经被访问查找一个访问节点
             w = getNextNeighbor(i, w);
         }
-
     }
 
     public void dfs() {
@@ -87,6 +86,8 @@ public class Graph {
             }
         }
     }
+
+    // 图的广度优先遍历
 
     // 插入节点
     public void insertVertex(String vertex) {
