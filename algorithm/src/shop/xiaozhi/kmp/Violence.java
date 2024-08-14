@@ -10,6 +10,7 @@ public class Violence {
         System.out.println(index);
     }
 
+
     public static int violence(String str1, String str2) {
         char[] s1 = str1.toCharArray();
         char[] s2 = str2.toCharArray();
@@ -25,7 +26,6 @@ public class Violence {
                 i++;
                 j++;
             } else {
-                // 设有匹配成功
                 i = i - (j - 1);
                 j = 0;
             }
@@ -37,4 +37,6 @@ public class Violence {
 
         return -1;
     }
+
+
 }
